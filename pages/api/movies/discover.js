@@ -1,6 +1,6 @@
 // pages/api/discover.js
 import fetch from "node-fetch";
-import { ConfigService } from "/services/config.service";
+import { ConfigService } from "/services/config.services";
 export default async function handler(req, res) {
   const url = ConfigService.themoviedb.urls.discover; //https://api.themoviedb.org/3/discover/movie
   const options = {
