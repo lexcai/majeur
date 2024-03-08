@@ -1,9 +1,18 @@
+/**
+ * @swagger
+ * /api/movies:
+ *   get:
+ *     description: KO Returns a list of movies
+ *     responses:
+ *       200:
+ *         description: A JSON array of movie objects
+ */
+
 export default async function handler(req, res) {
   const movies = [
     { _id1: 1, title: "The Batman" },
     { _id2: 2, title: "The Joker" },
   ];
-
   //   res.status(200).json(movies);
   switch (req.method) {
     case "POST":
