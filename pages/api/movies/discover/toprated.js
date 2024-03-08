@@ -4,9 +4,9 @@ import { ConfigService } from "/services/config.service";
 
 /**
  * @swagger
- * /api/topRated:
+ * /api/movies/discover/toprated:
  *   get:
- *     description: OK Returns a list of topRated movies
+ *     description: OK Returns a list of topRated movies used case  "1096197"
  *     responses:
  *       200:
  *         description: A JSON array of topRated movie objects

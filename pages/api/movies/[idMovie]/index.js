@@ -1,22 +1,21 @@
 import fetch from "node-fetch";
 import clientPromise from "/lib/mongodb";
 import { ConfigService } from "/services/config.service";
-
 /**
  * @swagger
- * /api/movies/{idMovie}/videos:
+ * /api/movies/{idMovie}:
  *   get:
- *     description: Endpoint which returns videos for a specific movie by its ID. used case "1096197"
+ *     description: Endpoint which returns details for a specific movie by its ID. used case "1096197"
  *     parameters:
  *       - in: path
  *         name: idMovie
  *         required: true
  *         schema:
  *           type: integer
- *         description: The ID of the movie to fetch videos for.
+ *         description: The ID of the movie to fetch details for.
  *     responses:
  *       200:
- *         description: A list of videos for the specified movie.
+ *         description: A list of details for the specified movie.
  *         content:
  *           application/json:
  *             schema:
@@ -28,14 +27,13 @@ import { ConfigService } from "/services/config.service";
  *                 data:
  *                   type: object
  *                   properties:
- *                     videos:
+ *                     details:
  *                       type: array
  *       400:
  *         description: Invalid request parameters.
  *       404:
  *         description: Movie not found.
  */
-
 export default async function handler(req, res) {
   const idMovie = parseInt(req.query.idMovie, 10);
   if (isNaN(idMovie)) {

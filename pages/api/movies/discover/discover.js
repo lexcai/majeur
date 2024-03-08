@@ -4,9 +4,9 @@ import { ConfigService } from "/services/config.service";
 
 /**
  * @swagger
- * /api/discover:
+ * /api/movies/discover:
  *   get:
- *     description: OK Returns a list of discovered movies
+ *     description: OK Returns a list of discovered movies used case 1096197
  *     responses:
  *       200:
  *         description: A JSON array of discovered movie objects
