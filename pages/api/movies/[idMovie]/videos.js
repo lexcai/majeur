@@ -6,13 +6,15 @@ import { ConfigService } from "/services/config.service";
  * @swagger
  * /api/movies/{idMovie}/videos:
  *   get:
- *     description: Endpoint which returns videos for a specific movie by its ID. used case "1096197"
+ *     summary: "Endpoint which returns videos for a specific movie by its ID."
+ *     description: Endpoint which returns videos for a specific movie by its ID. used case 1096197
  *     parameters:
  *       - in: path
  *         name: idMovie
  *         required: true
  *         schema:
  *           type: integer
+ *           example: 1096197
  *         description: The ID of the movie to fetch videos for.
  *     responses:
  *       200:

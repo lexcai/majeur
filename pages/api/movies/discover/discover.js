@@ -6,6 +6,7 @@ import { ConfigService } from "/services/config.service";
  * @swagger
  * /api/movies/discover:
  *   get:
+ *     summary: "Endpoint which returns a list of discovered movies."
  *     description: OK Returns a list of discovered movies used case 1096197
  *     responses:
  *       200:

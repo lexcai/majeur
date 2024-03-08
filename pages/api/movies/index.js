@@ -55,6 +55,7 @@ import { ConfigService } from "/services/config.service";
  *       404:
  *         description: Movies not found.
  */
+
 export default async function handler(req, res) {
   const url = ConfigService.themoviedb.urls.trending; // Replace with the actual URL
   const options = {

@@ -5,13 +5,15 @@ import { ConfigService } from "/services/config.service";
  * @swagger
  * /api/movies/{idMovie}:
  *   get:
- *     description: Endpoint which returns details for a specific movie by its ID. used case "1096197"
+ *     summary : Endpoint which returns details for a specific movie by its ID.
+ *     description: Endpoint which returns details for a specific movie by its ID. used case 1096197
  *     parameters:
  *       - in: path
  *         name: idMovie
  *         required: true
  *         schema:
  *           type: integer
+ *           example: 1096197
  *         description: The ID of the movie to fetch details for.
  *     responses:
  *       200:
@@ -34,6 +36,7 @@ import { ConfigService } from "/services/config.service";
  *       404:
  *         description: Movie not found.
  */
+
 export default async function handler(req, res) {
   const idMovie = parseInt(req.query.idMovie, 10);
   if (isNaN(idMovie)) {
