@@ -3,6 +3,7 @@ export const ConfigService = {
     urls: {
       discover: "https://api.themoviedb.org/3/discover/movie",
       movie: "https://api.themoviedb.org/3/movie",
+      search: "https://api.themoviedb.org/3/search",
       topRated:
         "https://api.themoviedb.org/3/movie/top_rated?language=en-US&page=1", // pense a faire le changement de langue au niveau des parametres = pagination
       trending: "https://api.themoviedb.org/3/trending/all/day?language=fr-FR", // pense a faire le changement de langue au niveau des parametres

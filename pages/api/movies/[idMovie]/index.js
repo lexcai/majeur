@@ -1,6 +1,7 @@
 import fetch from "node-fetch";
 import clientPromise from "/lib/mongodb";
 import { ConfigService } from "/services/config.service";
+
 /**
  * @swagger
  * /api/movies/{idMovie}:
@@ -43,7 +44,7 @@ export default async function handler(req, res) {
     return res.status(400).json({ status: 400, error: "Invalid movie ID" });
   }
 
-  const url = `${ConfigService.themoviedb.urls.movie}/${idMovie}/videos`;
+  const url = `${ConfigService.themoviedb.urls.movie}/${idMovie}`;
 
   const options = {
     method: "GET",

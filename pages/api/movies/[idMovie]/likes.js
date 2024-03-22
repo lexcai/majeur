@@ -1,6 +1,7 @@
+// pages/api/movies/[idMovie]/likes.js
+
 import clientPromise from "/lib/mongodb";
 
-// pages/api/movies/[idMovie]/likes.js
 /**
  * @swagger
  * /api/movies/{idMovie}/likes:
