@@ -4,21 +4,21 @@ import { ConfigService } from "/services/config.service";
 
 /**
  * @swagger
- * /api/movies/{idMovie}:
+ * /api/movies/{id}/videos:
  *   get:
- *     summary : Endpoint which returns details for a specific movie by its ID.
- *     description: Endpoint which returns details for a specific movie by its ID. used case 1096197
+ *     summary: "Endpoint which returns videos for a specific movie by its ID."
+ *     description: Endpoint which returns videos for a specific movie by its ID. used case 1096197
  *     parameters:
  *       - in: path
- *         name: idMovie
+ *         name: id
  *         required: true
  *         schema:
  *           type: integer
  *           example: 1096197
- *         description: The ID of the movie to fetch details for.
+ *         description: The ID of the movie to fetch videos for.
  *     responses:
  *       200:
- *         description: A list of details for the specified movie.
+ *         description: A list of videos for the specified movie.
  *         content:
  *           application/json:
  *             schema:
@@ -30,7 +30,7 @@ import { ConfigService } from "/services/config.service";
  *                 data:
  *                   type: object
  *                   properties:
- *                     details:
+ *                     videos:
  *                       type: array
  *       400:
  *         description: Invalid request parameters.
@@ -39,12 +39,12 @@ import { ConfigService } from "/services/config.service";
  */
 
 export default async function handler(req, res) {
-  const idMovie = parseInt(req.query.idMovie, 10);
-  if (isNaN(idMovie)) {
+  const id = parseInt(req.query.id, 10);
+  if (isNaN(id)) {
     return res.status(400).json({ status: 400, error: "Invalid movie ID" });
   }
 
-  const url = `${ConfigService.themoviedb.urls.movie}/${idMovie}`;
+  const url = `${ConfigService.themoviedb.urls.movie}/${id}/videos`;
 
   const options = {
     method: "GET",

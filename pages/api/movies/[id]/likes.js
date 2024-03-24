@@ -1,16 +1,16 @@
-// pages/api/movies/[idMovie]/likes.js
+// pages/api/movies/[id]/likes.js
 
 import clientPromise from "/lib/mongodb";
 
 /**
  * @swagger
- * /api/movies/{idMovie}/likes:
+ * /api/movies/{id}/likes:
  *   get:
  *     summary: "Endpoint which returns likes for a specific movie by its ID."
  *     description: "Endpoint which returns likes for a specific movie by its ID. used case 1096197"
  *     parameters:
  *       - in: path
- *         name: idMovie
+ *         name: id
  *         required: true
  *         schema:
  *           type: integer
@@ -40,7 +40,7 @@ import clientPromise from "/lib/mongodb";
  *     description: "Endpoint which increments the like counter for a specific movie by its ID. used case 1096197"
  *     parameters:
  *       - in: path
- *         name: idMovie
+ *         name: id
  *         required: true
  *         schema:
  *           type: integer
@@ -62,7 +62,7 @@ import clientPromise from "/lib/mongodb";
  *                     action:
  *                       type: string
  *                       example: "likeCounter incremented"
- *                     idMovie:
+ *                     id:
  *                       type: integer
  *                       example: 1096197
  *                     matchedCount:
@@ -76,20 +76,20 @@ import clientPromise from "/lib/mongodb";
  */
 
 export default async function handler(req, res) {
-  const idMovie = parseInt(req.query.idMovie, 10);
+  const id = parseInt(req.query.id, 10);
   const client = await clientPromise;
   const db = client.db("ynov-cloud");
   switch (req.method) {
     case "PATCH":
-      const like = await db.collection("likes").findOne({ idTMDB: idMovie });
+      const like = await db.collection("likes").findOne({ idTMDB: id });
       let resMongo, data;
       if (like) {
         resMongo = await db
           .collection("likes")
-          .updateOne({ idTMDB: idMovie }, { $inc: { likeCounter: 1 } });
+          .updateOne({ idTMDB: id }, { $inc: { likeCounter: 1 } });
         data = {
           action: "likeCounter incremented",
-          idMovie: idMovie,
+          id: id,
           matchedCount: resMongo.matchedCount,
           modifiedCount: resMongo.modifiedCount,
         };
@@ -97,17 +97,17 @@ export default async function handler(req, res) {
       } else {
         resMongo = await db
           .collection("likes")
-          .insertOne({ idTMDB: idMovie, likeCounter: 0 });
+          .insertOne({ idTMDB: id, likeCounter: 0 });
         data = {
           action: "likeCounter created",
-          idMovie: idMovie,
+          id: id,
           insertedId: resMongo.insertedId,
         };
         res.status(201).json({ status: 201, data: data });
       }
       break;
     case "GET":
-      const likes = await db.collection("likes").findOne({ idTMDB: idMovie });
+      const likes = await db.collection("likes").findOne({ idTMDB: id });
       res.json({ status: 200, data: { likes: likes } });
       break;
     default:

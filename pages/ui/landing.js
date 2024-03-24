@@ -32,7 +32,6 @@ function Landing() {
   return (
     <ThemeProvider theme={theme}>
       <PrimarySearchAppBar />
-
       <Container component="main" maxWidth="lg">
         <Box sx={{ my: 4 }}>
           <Typography variant="h4" component="h1" gutterBottom>
@@ -66,8 +65,8 @@ function Landing() {
                   </Typography>
                 </CardContent>
                 <CardActions>
-                  <Link href={`/ui/MovieDetails?id=${movie.id}`}>
-                    Learn More
+                  <Link href={`/ui/movieDetails/${movie.id}`} passHref>
+                    <Button size="small">View Details</Button>
                   </Link>
                 </CardActions>
               </Card>

@@ -4,21 +4,21 @@ import { ConfigService } from "/services/config.service";
 
 /**
  * @swagger
- * /api/movies/{idMovie}/videos:
+ * /api/movies/{id}:
  *   get:
- *     summary: "Endpoint which returns videos for a specific movie by its ID."
- *     description: Endpoint which returns videos for a specific movie by its ID. used case 1096197
+ *     summary : Endpoint which returns details for a specific movie by its ID.
+ *     description: Endpoint which returns details for a specific movie by its ID. used case 1096197
  *     parameters:
  *       - in: path
- *         name: idMovie
+ *         name: id
  *         required: true
  *         schema:
  *           type: integer
  *           example: 1096197
- *         description: The ID of the movie to fetch videos for.
+ *         description: The ID of the movie to fetch details for.
  *     responses:
  *       200:
- *         description: A list of videos for the specified movie.
+ *         description: A list of details for the specified movie.
  *         content:
  *           application/json:
  *             schema:
@@ -30,7 +30,7 @@ import { ConfigService } from "/services/config.service";
  *                 data:
  *                   type: object
  *                   properties:
- *                     videos:
+ *                     details:
  *                       type: array
  *       400:
  *         description: Invalid request parameters.
@@ -39,12 +39,12 @@ import { ConfigService } from "/services/config.service";
  */
 
 export default async function handler(req, res) {
-  const idMovie = parseInt(req.query.idMovie, 10);
-  if (isNaN(idMovie)) {
+  const id = parseInt(req.query.id, 10);
+  if (isNaN(id)) {
     return res.status(400).json({ status: 400, error: "Invalid movie ID" });
   }
 
-  const url = `${ConfigService.themoviedb.urls.movie}/${idMovie}/videos`;
+  const url = `${ConfigService.themoviedb.urls.movie}/${id}`;
 
   const options = {
     method: "GET",
@@ -59,16 +59,9 @@ export default async function handler(req, res) {
     if (!response.ok) {
       throw new Error(`API call failed with status: ${response.status}`);
     }
-
-    const videos = await response.json();
-
-    if (!videos || videos.results.length === 0) {
-      return res.status(404).json({ status: 404, error: "Not Found" });
-    }
-
-    res.json({ status: 200, data: { videos: videos.results } });
+    const data = await response.json();
+    res.status(200).json({ status: 200, data });
   } catch (error) {
-    console.error("Error fetching movie videos:", error);
-    res.status(500).json({ status: 500, message: "Internal Server Error" });
+    res.status(500).json({ status: 500, error: error.message });
   }
 }
