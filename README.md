@@ -1,3 +1,14 @@
+## LAUNCH COMMANDS
+
+Commandes pour lancer le projet en local :
+      npm install
+      npm start dev
+
+Commandes pour lancer les test JEST :
+      npm run test:coverage
+
+
+
 ## Example app using MongoDB
 
 [MongoDB](https://www.mongodb.com/) is a general purpose, document-based, distributed database built for modern application developers and for the cloud era. This example will show you how to connect to and use MongoDB as your backend for your Next.js app.
