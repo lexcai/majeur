@@ -5,7 +5,6 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import ProTip from "../../src/themes/mui-base-components/ProTip";
 import Link from "../../src/themes/mui-base-components/Link";
-import Copyright from "../../src/themes/mui-base-components/Copyright";
 
 export default function About() {
   return (
@@ -18,7 +17,6 @@ export default function About() {
           Go to the main page
         </Button>
         <ProTip />
-        <Copyright />
       </Box>
     </Container>
   );

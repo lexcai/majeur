@@ -1,6 +1,6 @@
-// pages/api/discover.js
+// pages/api//movies/discover/index.js
 import fetch from "node-fetch";
-import { ConfigService } from "/services/config.service";
+import { ConfigService } from "../../../../services/config.service";
 
 /**
  * @swagger

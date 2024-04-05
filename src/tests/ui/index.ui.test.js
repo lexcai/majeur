@@ -1,43 +1,44 @@
-// __tests__/ui/index.ui.test.js
+//index.ui.test.js
+import React from "react";
 import { render, screen } from "@testing-library/react";
-import Index from "../../pages/index";
-import { useAuth } from "../../src/contexts/auth.context";
-const useRouter = jest.spyOn(require("next/router"), "useRouter");
-useRouter.mockImplementation(() => ({
-  pathname: "/",
-  ...moreRouterData,
-}));
-jest.mock("../../src/contexts/auth.context");
-describe("Index", () => {
-  beforeEach(() => {
-    useRouter.mockReturnValue({
-      push: jest.fn(),
-    });
-  });
-  it("redirects to sign-in page if user is not authenticated", () => {
-    useAuth.mockReturnValue({
-      user: null,
-    });
+import "@testing-library/jest-dom";
+import Index from "../../../pages";
+
+describe("Index Page", () => {
+  it("renders the welcome message", () => {
     render(<Index />);
-    expect(useRouter().push).toHaveBeenCalledWith("/ui/sign-in");
+    expect(screen.getByText("Welcome to the Home Page")).toBeInTheDocument();
   });
-  it("does not redirect if user is authenticated", () => {
-    useAuth.mockReturnValue({
-      user: {
-        /* mock user data */
-      },
-    });
+
+  it("has a link to the sign-up page", () => {
     render(<Index />);
-    expect(useRouter().push).not.toHaveBeenCalled();
+    expect(screen.getByText("Go to the sign-up page")).toHaveAttribute(
+      "href",
+      "/ui/sign-up"
+    );
   });
-  it("renders the title correctly", () => {
+
+  it("has a link to the sign-in page", () => {
     render(<Index />);
-    expect(
-      screen.getByText("Material UI - Next.js example")
-    ).toBeInTheDocument();
+    expect(screen.getByText("Go to the sign-in page")).toHaveAttribute(
+      "href",
+      "/ui/sign-in"
+    );
   });
-  it("renders the sign-in link correctly", () => {
+
+  it("has a link to the about page", () => {
     render(<Index />);
-    expect(screen.getByText("Go to the Sign-In page")).toBeInTheDocument();
+    expect(screen.getByText("Go to the about page")).toHaveAttribute(
+      "href",
+      "/ui/about"
+    );
+  });
+
+  it("has a link to the landing page", () => {
+    render(<Index />);
+    expect(screen.getByText("Go to the landing page")).toHaveAttribute(
+      "href",
+      "/ui/landing"
+    );
   });
 });
