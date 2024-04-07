@@ -1,12 +1,14 @@
 import fetch from "node-fetch";
 jest.mock("../../../services/config.service", () => ({
-  themoviedb: {
-    urls: {
-      discover: "https://api.themoviedb.org/3/discover/movie",
-    },
-    keys: {
-      API_TOKEN:
-        "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIxMWU4MDRiNTc4ZTk0N2I2NDM3MDk3NTNjNGZiN2I5ZCIsInN1YiI6IjY1ZTliODAzNWFiYTMyMDE4NjcwZjEzNiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.LXpL4w8P7XwhPjefLL7fkRbzCGm3VIt_TXbtuDcLfbk",
+  ConfigService: {
+    themoviedb: {
+      urls: {
+        discover: "https://api.themoviedb.org/3/discover/movie",
+      },
+      keys: {
+        API_TOKEN:
+          "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIxMWU4MDRiNTc4ZTk0N2I2NDM3MDk3NTNjNGZiN2I5ZCIsInN1YiI6IjY1ZTliODAzNWFiYTMyMDE4NjcwZjEzNiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.LXpL4w8P7XwhPjefLL7fkRbzCGm3VIt_TXbtuDcLfbk",
+      },
     },
   },
 }));

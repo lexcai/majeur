@@ -22,8 +22,11 @@ export default async function handler(req, res) {
       Authorization: "Bearer " + ConfigService.themoviedb.keys.API_TOKEN,
     },
   };
-  const apiResponse = await fetch(url, options)
-    .then((r) => r.json())
-    .catch((err) => console.error("error:" + err));
-  res.json({ status: 200, data: apiResponse.results });
+  try {
+    const apiResponse = await fetch(url, options).then((r) => r.json());
+    res.json({ status: 200, data: apiResponse.results });
+  } catch (err) {
+    console.error("Fetch error:", err);
+    res.status(500).json({ status: 500, error: "Internal Server Error" });
+  }
 }
