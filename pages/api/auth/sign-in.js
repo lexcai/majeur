@@ -1,32 +1,34 @@
-// pages/api/auth/sign-in.js
-const handleSubmit = async (event) => {
-  event.preventDefault();
-  const formData = new FormData(event.currentTarget);
-  try {
-    const response = await fetch("/api/auth/sign-in", {
-      method: "POST",
-      body: JSON.stringify({
-        email: formData.get("email"),
-        password: formData.get("password"),
-      }),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    if (response.success) {
-      const data = await response.json();
-      login(data.userData, data.token);
-      router.push("/");
-    } else {
-      console.error("Failed to sign in");
-    }
-  } catch (error) {
-    console.error("Error signing in:", error);
-  }
-};
+import User from '../../../models/User';
+import bcrypt from 'bcryptjs';
+import jwt from 'jsonwebtoken';
+
 export default async function handler(req, res) {
+  if (req.method !== 'POST') {
+    return res.status(405).json({ message: 'Method not allowed' });
+  }
+
   const { email, password } = req.body;
-  console.log(email, password);
-  // Ici votre logique d'authentification
-  res.status(200).json({ success: true });
+
+  try {
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(401).json({ message: 'Login failed, user not found.' });
+    }
+
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) {
+      return res
+        .status(401)
+        .json({ message: 'Login failed, incorrect password.' });
+    }
+
+    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
+      expiresIn: '1h',
+    });
+
+    return res.status(200).json({ token, userData: { email: user.email } });
+  } catch (error) {
+    console.error('Authentication error:', error);
+    res.status(500).json({ success: false, message: 'Internal server error' });
+  }
 }
