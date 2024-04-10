@@ -1,7 +1,9 @@
 import User from '../../../models/User';
-import bcrypt from 'bcryptjs';
+import bcrypt from 'bcrypt';
+import dbConnect from '../../../src/db';
 
 export default async function handler(req, res) {
+  await dbConnect();
   if (req.method !== 'POST') {
     return res.status(405).json({ message: 'Method not allowed' });
   }
@@ -16,16 +18,17 @@ export default async function handler(req, res) {
 
     const hashedPassword = await bcrypt.hash(password, 12);
 
-    const user = new User({
+    const newUser = new User({
       email,
       password: hashedPassword,
     });
 
-    await user.save();
-
+    const savedUser = await newUser.save(); // This will throw an error if it fails
+    console.log('User created successfully', savedUser);
     return res.status(201).json({ message: 'User created successfully' });
   } catch (error) {
     console.error('Registration error:', error);
-    res.status(500).json({ message: 'Internal server error' });
+    // Provide a more generic message to the client for security
+    return res.status(500).json({ message: 'Internal server error' });
   }
 }

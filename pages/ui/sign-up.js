@@ -4,8 +4,6 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
 import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
@@ -13,19 +11,40 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-
-// TODO remove, this demo shouldn't need to reset the theme.
+import { useRouter } from 'next/router';
 
 const defaultTheme = createTheme();
 
 export default function SignUp() {
-  const handleSubmit = (event) => {
+  const router = useRouter();
+
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
+    const formData = new FormData(event.currentTarget);
+    try {
+      const response = await fetch('/api/auth/sign-up', {
+        // Adjust the endpoint as needed
+        method: 'POST',
+        body: JSON.stringify({
+          email: formData.get('email'),
+          password: formData.get('password'),
+        }),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      if (response.ok) {
+        // Assuming your API returns the user data and token upon successful registration
+        // Adjust according to your API response
+        router.push('/ui/sign-in'); // Redirect to sign-in page or elsewhere as needed
+      } else {
+        // Handle server-side validation errors or other issues here
+        console.error('Failed to sign up');
+      }
+    } catch (error) {
+      console.error('Error signing up:', error);
+    }
   };
 
   return (
@@ -44,7 +63,7 @@ export default function SignUp() {
             <LockOutlinedIcon />
           </Avatar>
           <Typography component='h1' variant='h5'>
-            Sign up
+            Sign Up
           </Typography>
           <Box
             component='form'
@@ -60,7 +79,6 @@ export default function SignUp() {
               label='Email Address'
               name='email'
               autoComplete='email'
-              autoFocus
             />
             <TextField
               margin='normal'
@@ -70,21 +88,7 @@ export default function SignUp() {
               label='Password'
               type='password'
               id='password'
-              autoComplete='current-password'
-            />
-            <TextField
-              margin='normal'
-              required
-              fullWidth
-              name='password'
-              label='Confirm Password'
-              type='password'
-              id='confirmPassword'
-              autoComplete='confirm-password'
-            />
-            <FormControlLabel
-              control={<Checkbox value='remember' color='primary' />}
-              label='Remember me'
+              autoComplete='new-password'
             />
             <Button
               type='submit'
@@ -94,10 +98,10 @@ export default function SignUp() {
             >
               Sign Up
             </Button>
-            <Grid container>
+            <Grid container justifyContent='flex-end'>
               <Grid item>
                 <Link href='/ui/sign-in' variant='body2'>
-                  {'Have already an account? Sign In'}
+                  Already have an account? Sign in
                 </Link>
               </Grid>
             </Grid>

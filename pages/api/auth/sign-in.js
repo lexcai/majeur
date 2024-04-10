@@ -1,8 +1,10 @@
 import User from '../../../models/User';
-import bcrypt from 'bcryptjs';
+import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
+import dbConnect from '../../../src/db';
 
 export default async function handler(req, res) {
+  await dbConnect();
   if (req.method !== 'POST') {
     return res.status(405).json({ message: 'Method not allowed' });
   }
@@ -25,6 +27,10 @@ export default async function handler(req, res) {
     const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
       expiresIn: '1h',
     });
+
+    console.log(
+      `User ${user.email} logged in successfully at ${new Date().toISOString()}`
+    );
 
     return res.status(200).json({ token, userData: { email: user.email } });
   } catch (error) {
