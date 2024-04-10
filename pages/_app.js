@@ -7,6 +7,7 @@ import { ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import theme from '/src/themes/themes';
 import { AuthProvider } from '/src/context/auth.context';
+import Header from './ui/Header';
 
 export default function MyApp(props) {
   const { Component, pageProps } = props;
@@ -19,6 +20,7 @@ export default function MyApp(props) {
         <ThemeProvider theme={theme}>
           {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
           <CssBaseline />
+          <Header />
           <Component {...pageProps} />
         </ThemeProvider>
       </AppCacheProvider>

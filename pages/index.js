@@ -18,7 +18,7 @@ export default function Index() {
     }
   }, [user, router]);
   return (
-    <Container maxWidth='sm'>
+    <Container maxWidth='sm' sx={{ paddingTop: '50px' }}>
       <Box sx={{ my: 4 }}>
         <Typography variant='h4' component='h1' sx={{ mb: 2 }}>
           Welcome to the Home Page
