@@ -1,25 +1,22 @@
-# .circleci/config.yml
 version: 2.1
 orbs:
   node: circleci/node@5
-jobs:
+jobs: null
 test-node:
-    # Install node dependencies and run tests
-    executor: node/default
-    environment:
-      JEST_JUNIT_OUTPUT_DIR: ./test-results/
-    steps:
-      - checkout
-      - node/install-packages:
-          pkg-manager: npm
-      - run:
-          command: npm install jest-junit
-      - run:
-          name: Run tests
-          command: npm run test:ci
-      - store_test_results:
-          path: ./test-results/
+  executor: node/default
+  environment:
+    JEST_JUNIT_OUTPUT_DIR: ./test-results/
+  steps:
+    - checkout
+    - node/install-packages:
+        pkg-manager: npm
+    - run:
+        command: npm install jest-junit
+    - run:
+        name: Run tests
+        command: "npm run test:ci"
+    - store_test_results:
+        path: ./test-results/
 workflows:
   build-and-test:
-    jobs:
-- test-node
+    jobs: test-node
