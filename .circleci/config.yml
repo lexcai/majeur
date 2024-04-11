@@ -14,7 +14,7 @@ jobs:
           command: npm install jest-junit
       - run:
           name: Run tests
-          command: "npm run test:coverage"
+          command: "npm run test:ci"
       - store_test_results:
           path: ./test-results/
 workflows:
