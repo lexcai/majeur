@@ -22,20 +22,17 @@ export default function SignUp() {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
     try {
-      const response = await fetch(
-        "https://majeur-6z5y.vercel.app/ui/sign-in/api/auth/sign-up",
-        {
-          // Adjust the endpoint as needed
-          method: "POST",
-          body: JSON.stringify({
-            email: formData.get("email"),
-            password: formData.get("password"),
-          }),
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
+      const response = await fetch("ui/sign-in/api/auth/sign-up", {
+        // Adjust the endpoint as needed
+        method: "POST",
+        body: JSON.stringify({
+          email: formData.get("email"),
+          password: formData.get("password"),
+        }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
 
       if (response.ok) {
         // Assuming your API returns the user data and token upon successful registration

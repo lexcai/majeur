@@ -34,19 +34,16 @@ export default function SignIn() {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
     try {
-      const response = await fetch(
-        "https://majeur-6z5y.vercel.app/ui/sign-in/api/auth/sign-in",
-        {
-          method: "POST",
-          body: JSON.stringify({
-            email: formData.get("email"),
-            password: formData.get("password"),
-          }),
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
+      const response = await fetch("ui/sign-in/api/auth/sign-in", {
+        method: "POST",
+        body: JSON.stringify({
+          email: formData.get("email"),
+          password: formData.get("password"),
+        }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
       if (response.ok) {
         const data = await response.json();
         login(data.userData, data.token);
