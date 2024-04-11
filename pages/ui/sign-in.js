@@ -17,9 +17,11 @@ import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { useAuth } from '../../src/context/auth.context';
 
-// TODO remove, this demo shouldn't need to reset the theme.
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
-const defaultTheme = createTheme();
+import theme from '../../src/themes/themes'; 
+
 
 export default function SignIn() {
   const { user, login } = useAuth();
@@ -44,25 +46,27 @@ export default function SignIn() {
           'Content-Type': 'application/json',
         },
       });
+      const data = await response.json();
       if (response.ok) {
-        const data = await response.json();
         login(data.userData, data.token);
+        toast.success('Signed in successfully!');
         router.push('/');
       } else {
-        console.error('Failed to sign in');
+        toast.error('Failed to sign in. Please check your credentials.')
       }
     } catch (error) {
+      toast.error('An error occurred during sign in.');
       console.error('Error signing in:', error);
     }
   };
 
   return (
-    <ThemeProvider theme={defaultTheme}>
+    <ThemeProvider theme={theme}>
       <Container component='main' maxWidth='xs'>
         <CssBaseline />
         <Box
           sx={{
-            marginTop: 8,
+            marginTop: 16,
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
@@ -126,6 +130,7 @@ export default function SignIn() {
             </Grid>
           </Box>
         </Box>
+        <ToastContainer position="top-center" autoClose={3000} style={{ zIndex: 9999 }} />
       </Container>
     </ThemeProvider>
   );

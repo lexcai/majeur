@@ -12,10 +12,13 @@ import SearchIcon from '@mui/icons-material/Search';
 import LogoutIcon from '@mui/icons-material/Logout';
 import { useAuth } from '../../src/context/auth.context';
 import { useRouter } from 'next/router';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Header = () => {
   const [searchOpen, setSearchOpen] = useState(false);
   const [headerBackground, setHeaderBackground] = useState('transparent');
+  const [searchQuery, setSearchQuery] = useState('');
 
   const router = useRouter();
   const { user, logout } = useAuth();
@@ -23,6 +26,12 @@ const Header = () => {
   const controlHeaderBackground = () => {
     const backgroundColor = window.scrollY > 50 ? '#141414' : 'transparent';
     setHeaderBackground(backgroundColor);
+  };
+
+  const handleLogout = () => {
+    logout();
+    toast.success('Logged out successfully!');
+    router.push('/ui/sign-in');
   };
 
   useEffect(() => {
@@ -35,6 +44,7 @@ const Header = () => {
   const toggleSearch = () => {
     setSearchOpen((prev) => !prev);
   };
+  
 
   return (
     <AppBar
@@ -54,10 +64,10 @@ const Header = () => {
         >
           The Movie DB
         </Typography>
-        <Link href='/top-rated' passHref>
+        <Link href='/ui/trending' passHref>
           <Button color='inherit'>Trending</Button>
         </Link>
-        <Link href='/discover' passHref>
+        <Link href='/ui/discover' passHref>
           <Button color='inherit'>Discover</Button>
         </Link>
         <IconButton color='inherit' onClick={toggleSearch}>
@@ -71,7 +81,7 @@ const Header = () => {
           />
         )}
         {user ? (
-          <IconButton color='inherit' onClick={logout}>
+          <IconButton color='inherit' onClick={handleLogout}>
             <LogoutIcon />
           </IconButton>
         ) : (
@@ -80,6 +90,7 @@ const Header = () => {
           </Link>
         )}
       </Toolbar>
+      <ToastContainer position="top-center" autoClose={5000} />
     </AppBar>
   );
 };

@@ -1,4 +1,3 @@
-// pages/ui/landing.js
 import React, { useEffect, useState } from 'react';
 import {
   Container,
@@ -8,86 +7,85 @@ import {
   CardContent,
   Typography,
   Box,
-  Chip,
 } from '@mui/material';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Modal } from '@mui/material';
 
 const theme = createTheme({
-  components: {
-    // Customizing all Cards to have a Netflix-like hover effect
-    MuiCard: {
-      styleOverrides: {
-        root: (theme) => ({
-          // Use a function to access the theme
-          position: 'relative',
-          transition: 'transform 0.3s ease-in-out',
-          '&:hover': {
-            transform: 'scale(1.05)',
-            '& .MuiCardContent-root': {
-              opacity: 1,
-              color: 'white',
+    components: {
+      // Customizing all Cards to have a Netflix-like hover effect
+      MuiCard: {
+        styleOverrides: {
+          root: (theme) => ({
+            // Use a function to access the theme
+            position: 'relative',
+            transition: 'transform 0.3s ease-in-out',
+            '&:hover': {
+              transform: 'scale(1.05)',
+              '& .MuiCardContent-root': {
+                opacity: 1,
+                color: 'white',
+              },
+              '& .MuiCardActions-root': {
+                opacity: 1,
+              },
             },
-            '& .MuiCardActions-root': {
-              opacity: 1,
-            },
-          },
-        }),
-      },
-    },
-    MuiCardContent: {
-      styleOverrides: {
-        root: {
-          position: 'absolute',
-          bottom: 0,
-          left: 0,
-          right: 0,
-          backgroundColor: 'rgba(0, 0, 0, 0.7)',
-          opacity: 0,
-          padding: '1px',
-          transition: 'opacity 0.3s ease-in-out',
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'flex-end',
-          color: 'white',
+          }),
         },
       },
+      MuiCardContent: {
+        styleOverrides: {
+          root: {
+            position: 'absolute',
+            bottom: 0,
+            left: 0,
+            right: 0,
+            backgroundColor: 'rgba(0, 0, 0, 0.7)',
+            opacity: 0,
+            padding: '1px',
+            transition: 'opacity 0.3s ease-in-out',
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'flex-end',
+            color: 'white',
+        },
+        },
     },
-  },
+    },
 });
 
-function Landing() {
-  const [topRatedMovies, setTopRatedMovies] = useState([]);
-  const [selectedMovie, setSelectedMovie] = useState(null);
-  const [open, setOpen] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
+function MoviePage({ title, fetchPath }) { // 'title' and 'fetchPath' are props to be passed to the component
+const [movies, setMovies] = useState([]);
+const [selectedMovie, setSelectedMovie] = useState(null);
+const [open, setOpen] = useState(false);
+const [isLoading, setIsLoading] = useState(false);
 
-  const handleOpenModal = (movieId) => {
+const handleOpenModal = (movieId) => {
     setIsLoading(true);
     fetch(`/api/movies/${movieId}`)
-      .then((response) => response.json())
-      .then((data) => {
+    .then((response) => response.json())
+    .then((data) => {
         setSelectedMovie(data.data);
         setOpen(true);
-      })
-      .catch((error) => console.error('Error fetching movie details:', error))
-      .finally(() => setIsLoading(false));
-  };
+    })
+    .catch((error) => console.error('Error fetching movie details:', error))
+    .finally(() => setIsLoading(false));
+};
 
-  const handleCloseModal = () => {
+const handleCloseModal = () => {
     setOpen(false);
-  };
+};
 
-  useEffect(() => {
-    fetch('/api/movies/discover/toprated')
-      .then((response) => response.json())
-      .then((data) => setTopRatedMovies(data.data))
-      .catch((error) =>
-        console.error('Error fetching top rated movies:', error)
-      );
-  }, []);
+useEffect(() => {
+    fetch('/api/movies/discover/')
+    .then((response) => response.json())
+    .then((data) => setMovies(data.data))
+    .catch((error) =>
+        console.error('Error fetching discover movies:', error)
+    );
+}, []);
 
-  const style = {
+const style = {
     position: 'absolute',
     top: '50%',
     left: '50%',
@@ -98,19 +96,19 @@ function Landing() {
     boxShadow: 24,
     p: 4,
     color: 'white',
-  };
+};
 
-  return (
+return (
     <ThemeProvider theme={theme}>
-      <Container component='main' maxWidth='95%' sx={{ pt: '64px', px:'0px '}}>
+    <Container component='main' maxWidth='95%' sx={{ pt: '64px', px:'0px '}}>
         <Box sx={{ my: 4 }}>
-          <Typography variant='h4' component='h1' gutterBottom>
-            Top Rated Movies
-          </Typography>
+        <Typography variant='h4' component='h1' gutterBottom>
+            Discover Movies
+        </Typography>
         </Box>
         <Grid container spacing={4
         }>
-          {topRatedMovies.map((movie) => (
+          {movies.map((movie) => (
             <Grid item key={movie.id} xs={12} sm={6} md={2.4} lg={2.4}>
               <Card onClick={() => handleOpenModal(movie.id)}>
                 <CardMedia
@@ -221,9 +219,9 @@ function Landing() {
             </Box>
           </Modal>
         )}
-      </Container>
+    </Container>
     </ThemeProvider>
-  );
+);
 }
 
-export default Landing;
+export default MoviePage;
