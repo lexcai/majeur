@@ -55,7 +55,7 @@ const Header = () => {
           The Movie DB
         </Typography>
         <Link href='/top-rated' passHref>
-          <Button color='inherit'>Top Rated</Button>
+          <Button color='inherit'>Trending</Button>
         </Link>
         <Link href='/discover' passHref>
           <Button color='inherit'>Discover</Button>
