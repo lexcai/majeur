@@ -8,6 +8,7 @@ import CssBaseline from '@mui/material/CssBaseline';
 import theme from '/src/themes/themes';
 import { AuthProvider } from '/src/context/auth.context';
 import Header from './ui/Header';
+import Footer from './ui/footer';
 
 export default function MyApp(props) {
   const { Component, pageProps } = props;
@@ -22,6 +23,7 @@ export default function MyApp(props) {
           <CssBaseline />
           <Header />
           <Component {...pageProps} />
+          <Footer />  
         </ThemeProvider>
       </AppCacheProvider>
     </AuthProvider>

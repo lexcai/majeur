@@ -1,19 +1,21 @@
 // pages/ui/sign-up.js
-import * as React from "react";
-import Avatar from "@mui/material/Avatar";
-import Button from "@mui/material/Button";
-import CssBaseline from "@mui/material/CssBaseline";
-import TextField from "@mui/material/TextField";
-import Link from "@mui/material/Link";
-import Grid from "@mui/material/Grid";
-import Box from "@mui/material/Box";
-import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-import Typography from "@mui/material/Typography";
-import Container from "@mui/material/Container";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { useRouter } from "next/router";
+import * as React from 'react';
+import Avatar from '@mui/material/Avatar';
+import Button from '@mui/material/Button';
+import CssBaseline from '@mui/material/CssBaseline';
+import TextField from '@mui/material/TextField';
+import Link from '@mui/material/Link';
+import Grid from '@mui/material/Grid';
+import Box from '@mui/material/Box';
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import Typography from '@mui/material/Typography';
+import Container from '@mui/material/Container';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { useRouter } from 'next/router';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import theme from '../../src/themes/themes';
 
-const defaultTheme = createTheme();
 
 export default function SignUp() {
   const router = useRouter();
@@ -38,18 +40,26 @@ export default function SignUp() {
         // Assuming your API returns the user data and token upon successful registration
         // Adjust according to your API response
         router.push("/ui/sign-in"); // Redirect to sign-in page or elsewhere as needed
+        toast.success('Registration successful. Please sign in.');
+
+        router.push('/ui/sign-in'); 
       } else {
         // Handle server-side validation errors or other issues here
         console.error("Failed to sign up");
+        toast.error('Failed to sign up. Please try again.');
       }
     } catch (error) {
       console.error("Error signing up:", error);
+      toast.error('An error occurred during sign up.');
+      console.error('Error signing up:', error);
     }
   };
 
   return (
     <ThemeProvider theme={defaultTheme}>
       <Container component="main" maxWidth="xs">
+    <ThemeProvider theme={theme}>
+      <Container component='main' maxWidth='xs'>
         <CssBaseline />
         <Box
           sx={{
@@ -57,6 +67,10 @@ export default function SignUp() {
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
+            marginTop: 16,
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
           }}
         >
           <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
@@ -107,6 +121,7 @@ export default function SignUp() {
             </Grid>
           </Box>
         </Box>
+        <ToastContainer position="top-center" autoClose={5000} />
       </Container>
     </ThemeProvider>
   );

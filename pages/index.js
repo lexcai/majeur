@@ -38,6 +38,9 @@ export default function Index() {
         <Link href='/ui/landing' color='secondary'>
           Go to the landing page
         </Link>
+        <Link href='/ui/discover' color='secondary'>
+          Go to the discover page
+        </Link>
         <ProTip />
       </Box>
     </Container>
