@@ -11,7 +11,6 @@ import {
   Chip,
 } from "@mui/material";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import PrimarySearchAppBar from "../../../src/themes/mui-base-components/Header";
 
 const theme = createTheme();
 
@@ -33,8 +32,6 @@ export default function MovieDetails() {
 
   return (
     <ThemeProvider theme={theme}>
-      <PrimarySearchAppBar />
-
       <Container component="main" maxWidth="md">
         <Box sx={{ my: 4 }}>
           <Typography variant="h4" component="h1" gutterBottom>
