@@ -1,93 +1,59 @@
-## LAUNCH COMMANDS
+# PROJET MAJEUR
 
-Commandes pour lancer le projet en local :
-      npm install
-      npm start dev
+## Prérequis
 
-Commandes pour lancer les test JEST :
-      npm run test:coverage
+Pour exécuter ce projet, vous aurez besoin de :
 
+- Node.js
+- npm
 
+## Installation
 
-## Example app using MongoDB
+Clonez le dépôt :
 
-[MongoDB](https://www.mongodb.com/) is a general purpose, document-based, distributed database built for modern application developers and for the cloud era. This example will show you how to connect to and use MongoDB as your backend for your Next.js app.
+git clone <https://github.com/lexcai/majeur.git>
 
-If you want to learn more about MongoDB, visit the following pages:
+Installez les dépendances :
 
-- [MongoDB Atlas](https://mongodb.com/atlas)
-- [MongoDB Documentation](https://docs.mongodb.com/)
-
-## Deploy your own
-
-Once you have access to the environment variables you'll need, deploy the example using [Vercel](https://vercel.com?utm_source=github&utm_medium=readme&utm_campaign=next-example):
-
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?project-name=with-mongodb&repository-name=with-mongodb&repository-url=https%3A%2F%2Fgithub.com%2Fvercel%2Fnext.js%2Ftree%2Fcanary%2Fexamples%2Fwith-mongodb&integration-ids=oac_jnzmjqM10gllKmSrG0SGrHOH)
-
-## How to use
-
-Execute [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) with [npm](https://docs.npmjs.com/cli/init), [Yarn](https://yarnpkg.com/lang/en/docs/cli/create/), or [pnpm](https://pnpm.io) to bootstrap the example:
-
-```bash
-npx create-next-app --example with-mongodb with-mongodb-app
 ```
-
-```bash
-yarn create next-app --example with-mongodb with-mongodb-app
-```
-
-```bash
-pnpm create next-app --example with-mongodb with-mongodb-app
-```
-
-## Configuration
-
-### Set up a MongoDB database
-
-Set up a MongoDB database either locally or with [MongoDB Atlas for free](https://mongodb.com/atlas).
-
-### Set up environment variables
-
-Copy the `env.local.example` file in this directory to `.env.local` (which will be ignored by Git):
-
-```bash
-cp .env.local.example .env.local
-```
-
-Set each variable on `.env.local`:
-
-- `MONGODB_URI` - Your MongoDB connection string. If you are using [MongoDB Atlas](https://mongodb.com/atlas) you can find this by clicking the "Connect" button for your cluster.
-
-### Run Next.js in development mode
-
-```bash
 npm install
-npm run dev
-
-# or
-
-yarn install
-yarn dev
 ```
 
-Your app should be up and running on [http://localhost:3000](http://localhost:3000)! If it doesn't work, post on [GitHub discussions](https://github.com/vercel/next.js/discussions).
+## Exécution du projet
 
-You will either see a message stating "You are connected to MongoDB" or "You are NOT connected to MongoDB". Ensure that you have provided the correct `MONGODB_URI` environment variable.
+Pour exécuter le projet en mode développement :
 
-When you are successfully connected, you can refer to the [MongoDB Node.js Driver docs](https://mongodb.github.io/node-mongodb-native/3.4/tutorials/collections/) for further instructions on how to query your database.
+```
+npm run dev
+```
 
-## Deploy on Vercel
+Pour exécuter le projet en mode production :
 
-You can deploy this app to the cloud with [Vercel](https://vercel.com?utm_source=github&utm_medium=readme&utm_campaign=next-example) ([Documentation](https://nextjs.org/docs/deployment)).
+```
+npm run build
+npm start
+```
 
-#### Deploy Your Local Project
+## Tests
 
-To deploy your local project to Vercel, push it to GitHub/GitLab/Bitbucket and [import to Vercel](https://vercel.com/new?utm_source=github&utm_medium=readme&utm_campaign=next-example).
+Pour exécuter les tests :
 
-**Important**: When you import your project on Vercel, make sure to click on **Environment Variables** and set them to match your `.env.local` file.
+```
+npm run test
+```
 
-#### Deploy from Our Template
+## Structure du projet
 
-Alternatively, you can deploy using our template by clicking on the Deploy button below.
+- src/ : Contient le code source du projet.
+- tests/ : Contient les tests unitaires.
+- public/ : Contient les fichiers publics comme les images, les styles, etc.
+- pages/ : Contient les composants de page pour Next.js.
+- models/ : Contient les modèles de données.
+- lib/ : Contient les bibliothèques utilitaires.
+- services/ : Contient les services, comme les services de configuration.
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?project-name=with-mongodb&repository-name=with-mongodb&repository-url=https%3A%2F%2Fgithub.com%2Fvercel%2Fnext.js%2Ftree%2Fcanary%2Fexamples%2Fwith-mongodb&integration-ids=oac_jnzmjqM10gllKmSrG0SGrHOH)
+## Outils utilisés
+
+- Next.js : Un framework React pour le développement de applications web.
+- Jest : Un framework de tests pour JavaScript.
+- Node-fetch : Une bibliothèque pour faire des requêtes HTTP dans Node.js.

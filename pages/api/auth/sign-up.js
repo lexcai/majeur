@@ -24,7 +24,6 @@ export default async function handler(req, res) {
     });
 
     const savedUser = await newUser.save();
-    console.log("User created successfully", savedUser);
     return res.status(201).json({ message: "User created successfully" });
   } catch (error) {
     console.error("Registration error:", error);
